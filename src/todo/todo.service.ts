@@ -3,6 +3,7 @@ import { Todo } from './schemas/todo.schema';
 import mongoose from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { Query as ExpressQuery } from 'express-serve-static-core';
+import { Auth } from 'src/auth/schemas/auth.schema';
 const PAGE_SIZE = 3;
 @Injectable()
 export class TodoService {
@@ -41,8 +42,9 @@ export class TodoService {
     return todos;
   }
 
-  async create(todo: Todo): Promise<Todo> {
-    const todos = await this.todoModel.create(todo);
+  async create(todo: Todo, user: Auth): Promise<Todo> {
+    const data = Object.assign(todo, { user: user._id });
+    const todos = await this.todoModel.create(data);
     return todos;
   }
 

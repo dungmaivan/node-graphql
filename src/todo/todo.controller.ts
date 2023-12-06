@@ -7,11 +7,14 @@ import {
   Post,
   Put,
   Query,
+  Req,
+  UseGuards,
 } from '@nestjs/common';
 import { TodoService } from './todo.service';
 import { Todo } from './schemas/todo.schema';
-import { CreateTodo } from './dto/create-todo';
+import { CreateTodoDto } from './dto/create-todo';
 import { Query as ExpressQuery } from 'express-serve-static-core';
+import { AuthGuard } from '@nestjs/passport';
 @Controller('todo')
 export class TodoController {
   constructor(private todoService: TodoService) {}
@@ -33,11 +36,15 @@ export class TodoController {
   }
 
   @Post()
+  @UseGuards(AuthGuard())
   async createTodo(
     @Body()
-    todo: CreateTodo,
+    todo: CreateTodoDto,
+    @Req() req,
   ): Promise<Todo> {
-    return this.todoService.create(todo);
+    console.log(req);
+
+    return this.todoService.create(todo, req.user);
   }
 
   @Put(':id')
@@ -45,7 +52,7 @@ export class TodoController {
     @Param('id')
     id: string,
     @Body()
-    todo: CreateTodo,
+    todo: CreateTodoDto,
   ): Promise<Todo> {
     return this.todoService.update(id, todo);
   }

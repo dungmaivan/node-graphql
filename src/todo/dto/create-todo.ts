@@ -1,6 +1,7 @@
-import { IsBoolean, IsNotEmpty, IsString } from 'class-validator';
+import { IsBoolean, IsEmpty, IsNotEmpty, IsString } from 'class-validator';
+import { Auth } from 'src/auth/schemas/auth.schema';
 
-export class CreateTodo {
+export class CreateTodoDto {
   @IsNotEmpty()
   @IsString()
   readonly title: string;
@@ -11,4 +12,7 @@ export class CreateTodo {
 
   @IsBoolean()
   readonly completed: boolean;
+
+  @IsEmpty({ message: 'You cannot pass user id' })
+  readonly user: Auth;
 }
