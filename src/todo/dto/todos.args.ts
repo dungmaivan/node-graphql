@@ -1,14 +1,18 @@
-import { ArgsType, Field, Int } from '@nestjs/graphql';
-import { Max, Min } from 'class-validator';
+import { Field, InputType, Int } from '@nestjs/graphql';
+import { IsOptional, Max, Min } from 'class-validator';
 
-@ArgsType()
+@InputType()
 export class TodosArgs {
   @Field(() => Int)
   @Min(0)
-  skip = 0;
+  page: number;
 
   @Field(() => Int)
   @Min(1)
   @Max(50)
-  take = 25;
+  count: number;
+
+  @IsOptional()
+  @Field({ nullable: true })
+  keyword?: string;
 }
