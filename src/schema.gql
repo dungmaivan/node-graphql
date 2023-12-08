@@ -6,11 +6,20 @@ input CreateTodoInput {
   completed: Boolean!
   description: String
   title: String!
+  userId: String!
+}
+
+input LoginInputDto {
+  email: String!
+  password: String!
 }
 
 type Mutation {
-  addTodo(createTodoData: CreateTodoInput!): Todo!
+  createTodoData(createTodoData: CreateTodoInput!): Todo!
+  deleteAccount(id: String!): String!
   deleteTodo(id: String!): String!
+  login(login: LoginInputDto!): Signup!
+  signup(signup: SigupInputDto!): Signup!
   updateTodo(todo: UpdateTodoInput!): Todo!
 }
 
@@ -19,12 +28,24 @@ type Query {
   getOneTodo(id: String!): Todo!
 }
 
+type Signup {
+  token: String!
+}
+
+input SigupInputDto {
+  email: String!
+  password: String!
+  role: String!
+  username: String!
+}
+
 """todo """
 type Todo {
   completed: Boolean!
   description: String
   id: ID!
   title: String!
+  userId: String!
 }
 
 input TodosArgs {

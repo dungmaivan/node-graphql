@@ -13,7 +13,7 @@ export class Auth extends Document {
   role: Role;
 
   @Prop()
-  name: string;
+  username: string;
 
   @Prop({ unique: [true, 'Duplicate email entered'] })
   email: string;

@@ -4,6 +4,8 @@ import { Todo } from './models/todo.model';
 import { CreateTodoInput } from './dto/create-todo.input';
 import { UpdateTodoInput } from './dto/update-todo-input';
 import { TodosArgs } from './dto/todos.args';
+import { UseGuards } from '@nestjs/common';
+import { JwtAuthGuard } from 'src/auth/guards/auth.gurad';
 
 @Resolver('Todo')
 export class TodoResolver {
@@ -22,18 +24,23 @@ export class TodoResolver {
   }
 
   @Mutation(() => Todo)
-  async addTodo(@Args('createTodoData') createTodoData: CreateTodoInput) {
+  @UseGuards(JwtAuthGuard)
+  async createTodoData(
+    @Args('createTodoData') createTodoData: CreateTodoInput,
+  ) {
     const todo = await this.todoService.create(createTodoData);
     return todo;
   }
 
   @Mutation(() => String)
+  @UseGuards(JwtAuthGuard)
   async deleteTodo(@Args('id') id: string) {
     const todo = await this.todoService.deleteTodo(id);
     return todo;
   }
 
   @Mutation(() => Todo)
+  @UseGuards(JwtAuthGuard)
   async updateTodo(@Args('todo') updateTodoInput: UpdateTodoInput) {
     const todo = await this.todoService.updateTodo(updateTodoInput);
     return todo;

@@ -4,17 +4,19 @@ import { PassportStrategy } from '@nestjs/passport';
 import { Strategy, ExtractJwt } from 'passport-jwt';
 import { Model } from 'mongoose';
 import { Auth, Role } from './schema/auth.shema';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class JWTStrategy extends PassportStrategy(Strategy) {
   constructor(
     @InjectModel(Auth.name)
     private userModel: Model<Auth>,
+    private configService: ConfigService,
   ) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       ignoreExpiration: false,
-      secretOrKey: process.env.JWT_SECRET,
+      secretOrKey: configService.get('JWT_SECRET'),
     });
   }
 
@@ -22,9 +24,10 @@ export class JWTStrategy extends PassportStrategy(Strategy) {
     const { id } = payload;
     const user = await this.userModel.findById(id);
     if (!user) {
-      throw new UnauthorizedException('Login first to access this endpoint.');
+      throw new UnauthorizedException('User not found');
     }
-    if (user && user.role === Role.employee) {
+
+    if (user && user.role !== Role.boss) {
       throw new UnauthorizedException(
         'You are not authorized to access this endpoint.',
       );

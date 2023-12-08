@@ -1,5 +1,5 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql';
-import { IsOptional } from 'class-validator';
+import { IsNotEmpty, IsOptional } from 'class-validator';
 
 @ObjectType({ description: 'todo ' })
 export class Todo {
@@ -15,4 +15,8 @@ export class Todo {
   @Field()
   @IsOptional()
   completed?: boolean;
+
+  @Field()
+  @IsNotEmpty()
+  userId: string;
 }
