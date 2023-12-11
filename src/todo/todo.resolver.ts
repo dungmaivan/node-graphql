@@ -5,7 +5,7 @@ import { CreateTodoInput } from './dto/create-todo.input';
 import { UpdateTodoInput } from './dto/update-todo-input';
 import { TodosArgs } from './dto/todos.args';
 import { UseGuards } from '@nestjs/common';
-import { JwtAuthGuard } from 'src/auth/guards/auth.gurad';
+import { JwtAuthGuard } from '../auth/guards/auth.gurad';
 
 @Resolver('Todo')
 export class TodoResolver {

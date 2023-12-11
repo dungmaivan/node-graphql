@@ -14,7 +14,7 @@ export class TodoService {
     private todoModel: mongoose.Model<Todo>,
   ) {}
   async create(data: CreateTodoInput) {
-    const newTodo = this.todoModel.create(data);
+    const newTodo = await this.todoModel.create(data);
     return newTodo;
   }
 

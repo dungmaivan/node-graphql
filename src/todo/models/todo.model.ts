@@ -19,4 +19,8 @@ export class Todo {
   @Field()
   @IsNotEmpty()
   userId: string;
+
+  @Field()
+  @IsNotEmpty()
+  endDate: Date
 }
