@@ -6,12 +6,18 @@ import { SigupInputDto } from './dto/signup.dto';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcryptjs';
 import { LoginInputDto } from './dto/login.dto';
+import {MailerService} from '@nestjs-modules/mailer';
+import * as ejs from 'ejs';
+import e from 'express';
+import { join } from 'path';
+
 @Injectable()
 export class AuthService {
   constructor(
     @InjectModel(Auth.name)
     private authModel: mongoose.Model<Auth>,
     private jwtService: JwtService,
+    private mailerServide: MailerService
   ) {}
 
   async signup(signupDto: SigupInputDto): Promise<{ token: string }> {
@@ -24,13 +30,14 @@ export class AuthService {
       role,
     });
     const token = this.jwtService.sign({ id: user._id });
-
+    
     return { token: token };
   }
 
   async login(loginInputDto: LoginInputDto): Promise<{ token: string }> {
     const { email, password } = loginInputDto;
     const user = await this.authModel.findOne({ email });
+    console.log("🚀 ~ file: auth.service.ts:38 ~ AuthService ~ login ~ user:", user)
     if (!user) {
       throw new Error('Not found user');
     }
@@ -38,6 +45,23 @@ export class AuthService {
     if (!isMatch) {
       throw new Error('Password is not correct');
     }
+    // await this.mailerServide.sendMail({
+    //   to: email,
+    //   subject: 'Welcome to my app',
+    //   template: 'remind.ejs',
+    //   context: {
+    //     username: user.username
+    //   },
+    // })
+    // path.join(__dirname, "views/welcome-mail.ejs")
+     ejs.renderFile( 'src/templates/email/remind.ejs',  {username: user.username}).then(data => {
+      this.mailerServide.sendMail({
+        to: email,
+        subject: 'Welcome to my app',
+        html: data
+      })
+    
+    })
     const token = this.jwtService.sign({ id: user._id });
 
     return { token: token };
