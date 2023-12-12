@@ -10,12 +10,13 @@ import { TodoModule } from './todo/todo.module';
 import { AuthModule } from './auth/auth.module';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { EjsAdapter } from '@nestjs-modules/mailer/dist/adapters/ejs.adapter';
+import { ScheduleModule } from '@nestjs/schedule';
 
 
 @Module({
   imports: [
+    ScheduleModule.forRoot(),
     MailerModule.forRootAsync({
-      // imports: [ConfigModule],
       useFactory: async () => ({
         transport: {
           host: process.env.MAIL_HOST,
@@ -55,4 +56,4 @@ import { EjsAdapter } from '@nestjs-modules/mailer/dist/adapters/ejs.adapter';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { }

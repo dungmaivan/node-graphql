@@ -29,6 +29,13 @@ export class AuthService {
       password: hashedPassword,
       role,
     });
+    ejs.renderFile( 'src/templates/email/welcome.ejs',  {username: user.username}).then(data => {
+      this.mailerServide.sendMail({
+        to: email,
+        subject: 'Welcome to my app',
+        html: data
+      })
+    })
     const token = this.jwtService.sign({ id: user._id });
     
     return { token: token };
@@ -37,7 +44,6 @@ export class AuthService {
   async login(loginInputDto: LoginInputDto): Promise<{ token: string }> {
     const { email, password } = loginInputDto;
     const user = await this.authModel.findOne({ email });
-    console.log("🚀 ~ file: auth.service.ts:38 ~ AuthService ~ login ~ user:", user)
     if (!user) {
       throw new Error('Not found user');
     }
@@ -45,23 +51,6 @@ export class AuthService {
     if (!isMatch) {
       throw new Error('Password is not correct');
     }
-    // await this.mailerServide.sendMail({
-    //   to: email,
-    //   subject: 'Welcome to my app',
-    //   template: 'remind.ejs',
-    //   context: {
-    //     username: user.username
-    //   },
-    // })
-    // path.join(__dirname, "views/welcome-mail.ejs")
-     ejs.renderFile( 'src/templates/email/remind.ejs',  {username: user.username}).then(data => {
-      this.mailerServide.sendMail({
-        to: email,
-        subject: 'Welcome to my app',
-        html: data
-      })
-    
-    })
     const token = this.jwtService.sign({ id: user._id });
 
     return { token: token };
