@@ -2,8 +2,8 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-input ChangePasswordDto {
-  password: String!
+type ActiveAccount {
+  message: String!
 }
 
 input CreateTodoInput {
@@ -35,24 +35,34 @@ input LoginInputDto {
 }
 
 type Mutation {
-  changePassword(changePassword: ChangePasswordDto!): ForgotPasswordRequest!
+  activeAccount: ActiveAccount!
+  changePassword(changePassword: ResetPasswordDto!): ForgotPasswordRequest!
   createTodoData(createTodoData: CreateTodoInput!): Todo!
   deleteAccount(id: String!): String!
   deleteTodo(id: String!): String!
+  forgotPasswordRequest(forgotPasswordRequest: String!): String!
   login(login: LoginInputDto!): Login!
+  resetPassword(ResetPasswordDto: ResetPasswordDto!): ResetPasswordRequest!
   signup(signup: SigupInputDto!): Signup!
   updateTodo(todo: UpdateTodoInput!): Todo!
 }
 
 type Query {
-  forgotPasswordRequest(forgotPasswordRequest: String!): String!
   getAllTodos(getAllTodo: TodosArgs!): [Todo!]!
   getOneTodo(id: String!): Todo!
 }
 
+input ResetPasswordDto {
+  newPassword: String!
+  oldPassword: String!
+}
+
+type ResetPasswordRequest {
+  message: String!
+}
+
 type Signup {
   message: String!
-  token: String!
 }
 
 input SigupInputDto {

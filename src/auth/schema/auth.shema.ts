@@ -20,6 +20,9 @@ export class Auth extends Document {
 
   @Prop()
   password: string;
+
+  @Prop()
+  active: boolean
 }
 
 export const AuthSchema = SchemaFactory.createForClass(Auth);

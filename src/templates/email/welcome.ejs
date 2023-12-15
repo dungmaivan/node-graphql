@@ -1,95 +1,67 @@
-<table width="100%" cellpadding="0" cellspacing="0" border="0">
-    <tbody>
-      <tr>
-        <td width="100%">
-          <div style="max-width:600px;Margin:0 auto">
-            <table
-              align="center"
-              cellpadding="0"
-              cellspacing="0"
-              style="border-spacing:0;font-family:gt-eesti,ArialMT,Helvetica,Arial,sans-serif;Margin:0 auto;padding:24px;width:100%;max-width:500px"
-            >
-              <tbody>
-                <tr>
-                  <td style="text-align:justify;word-break:break-word">
-                    <table style="margin-bottom:20px;width:100%" width="100%">
-                      <tbody>
-                        <tr>
-                          <td>
-                            <table
-                              style="width:100%;margin-bottom:20px"
-                              width="100%"
-                              cellpadding="0"
-                              cellspacing="0"
-                            >
-                              <tbody>
-                                <tr>
-                                  <td>
-                                    <strong style="font-family:Helvetica,Arial,sans-serif;color:#234567">Hi <%= username %>, </strong>
-                                    
-                                    <h1
-                                      style="font-size:26px;line-height:30px;color:#054752;word-break:normal"
-                                    >
-                                    Welcome to nestjs!.
-                                    </h1>
-                                  </td>
-                                </tr>
-                              </tbody>
-                            </table>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </td>
-                </tr>
-                <tr>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td>
-                    <table width="100%" style="margin-bottom:20px;width:100%">
-                      <tbody>
-                        <tr>
-                          <td width="100%">
-                            <div
-                              style="width:100%;height:1px;background-color:#ddd"
-                              color="#DDD"
-                              width="100%"
-                            ></div>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </td>
-                </tr>
-  
-                
-                <tr>
-                  <td style="text-align:center">
-                    <table
-                      style="max-width:100%;width:100%;text-align:center;font-family:ArialMT,Arial,sans-serif"
-                      cellspacing="0"
-                      cellpadding="0"
-                    >
-                      <tbody>
-                        <tr>
-                          <td style="text-align:center">
-                            <p
-                              style="font-size:10px;color:#708c91;text-align:center;padding:0;margin-top:10px;margin-bottom:2px"
-                            >
-                              This email was sent to you by
-                              hiv-man (Do not reply)
-                            </p>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome to My App</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      line-height: 1.6;
+      background-color: #f7f7f7;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+
+    h1 {
+      color: #007BFF;
+    }
+
+    p {
+      color: #555;
+      margin-bottom: 15px;
+    }
+
+    a {
+      display: inline-block;
+      padding: 12px 25px;
+      margin-top: 20px;
+      background-color: #007BFF;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    a:hover {
+      background-color: #0056b3;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .footer {
+      margin-top: 20px;
+      font-size: 14px;
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Welcome <%= username %> to Dung Mike's App!</h1>
+    <p>Thank you for joining us. To activate your account, please click the link below:</p>
+    <a href="<%=  %>">Activate Account</a>
+    <p><%= token %></p>
+    <p>If you have any questions, feel free to contact us.</p>
+    <p class="footer">Best regards,<br>Your App Team</p>
+  </div>
+</body>
+</html>
