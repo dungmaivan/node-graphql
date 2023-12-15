@@ -2,6 +2,10 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+input ChangePasswordDto {
+  password: String!
+}
+
 input CreateTodoInput {
   completed: Boolean!
   description: String
@@ -15,26 +19,39 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+type ForgotPasswordRequest {
+  message: String!
+  token: String!
+}
+
+type Login {
+  message: String!
+  token: String!
+}
+
 input LoginInputDto {
   email: String!
   password: String!
 }
 
 type Mutation {
+  changePassword(changePassword: ChangePasswordDto!): ForgotPasswordRequest!
   createTodoData(createTodoData: CreateTodoInput!): Todo!
   deleteAccount(id: String!): String!
   deleteTodo(id: String!): String!
-  login(login: LoginInputDto!): Signup!
+  login(login: LoginInputDto!): Login!
   signup(signup: SigupInputDto!): Signup!
   updateTodo(todo: UpdateTodoInput!): Todo!
 }
 
 type Query {
+  forgotPasswordRequest(forgotPasswordRequest: String!): String!
   getAllTodos(getAllTodo: TodosArgs!): [Todo!]!
   getOneTodo(id: String!): Todo!
 }
 
 type Signup {
+  message: String!
   token: String!
 }
 

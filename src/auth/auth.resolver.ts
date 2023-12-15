@@ -1,16 +1,40 @@
-import { Args, Mutation, Resolver } from '@nestjs/graphql';
+import { Args, Mutation, Resolver, Query, Context } from '@nestjs/graphql';
 import { AuthService } from './auth.service';
 import { LoginInputDto } from './dto/login.dto';
 import { SigupInputDto } from './dto/signup.dto';
 import { Signup } from './models/signup.model';
-import { UseGuards } from '@nestjs/common';
+import { Req, UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from './guards/auth.gurad';
+import { Login } from './models/login.model';
+import { ForgotPasswordRequest } from './models/verifyForgotPassword.model';
+import { ChangePasswordDto } from './dto/changePasswordDto.dto';
+import { CurrentUser } from './decorator/user.decorator.graphql';
+// import { ForgotPasswordRequest } from './models/verifyForgotPassword.model';
+// import { ChangePasswordDto } from './dto/changePasswordDto.dto';
 
 @Resolver()
 export class AuthResolver {
-  constructor(private readonly authService: AuthService) {}
+  constructor(private readonly authService: AuthService) { }
 
-  @Mutation(() => Signup)
+  @Query(() => String)
+  async forgotPasswordRequest(
+    @Args('forgotPasswordRequest') email: string,
+  ) {
+    return this.authService.forgotPasswordRequest(email);
+  }
+
+  @Mutation(() => ForgotPasswordRequest)
+  @UseGuards(JwtAuthGuard)
+  async changePassword(
+    @CurrentUser()  user,
+    @Args('changePassword') changePasswordData: ChangePasswordDto
+  ) {
+    console.log(user, 'user');
+    
+    return this.authService.changePassword( changePasswordData, user._id)
+  }
+
+  @Mutation(() => Login)
   async login(@Args('login') userData: LoginInputDto) {
     return this.authService.login(userData);
   }
