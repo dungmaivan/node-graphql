@@ -17,11 +17,8 @@ export class UpdateTodoInput {
 
   @Field()
   completed: boolean;
-  
-
 
   @Field()
   @IsDate()
   endDate: Date;
-
 }

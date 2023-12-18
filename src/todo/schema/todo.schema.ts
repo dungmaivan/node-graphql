@@ -21,7 +21,7 @@ export class Todo {
 
   @Prop()
   @IsDate()
-  endDate: Date
+  endDate: Date;
 }
 
 export const TodoSchema = SchemaFactory.createForClass(Todo);

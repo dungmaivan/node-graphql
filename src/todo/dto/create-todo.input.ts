@@ -18,7 +18,6 @@ export class CreateTodoInput {
   @IsNotEmpty()
   userId: string;
 
-
   @Field()
   @IsDate()
   endDate: Date;

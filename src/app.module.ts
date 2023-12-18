@@ -3,15 +3,15 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
-import path, { join } from 'path';
-import { ConfigModule, ConfigService } from '@nestjs/config';
+import { join } from 'path';
+import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { TodoModule } from './todo/todo.module';
 import { AuthModule } from './auth/auth.module';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { EjsAdapter } from '@nestjs-modules/mailer/dist/adapters/ejs.adapter';
 import { ScheduleModule } from '@nestjs/schedule';
-
+import { BullModule } from '@nestjs/bull';
 
 @Module({
   imports: [
@@ -25,19 +25,19 @@ import { ScheduleModule } from '@nestjs/schedule';
           auth: {
             user: process.env.MAIL_USER,
             pass: process.env.MAIL_PASSWORD,
-          }
+          },
         },
         defaults: {
-          from: `"No Reply" <${process.env.MAIL_FROM}>`
+          from: `"No Reply" <${process.env.MAIL_FROM}>`,
         },
         template: {
           dir: join(__dirname, 'src/templates/email'),
           adapter: new EjsAdapter(),
           options: {
-            strict: true
-          }
-        }
-      })
+            strict: true,
+          },
+        },
+      }),
     }),
     ConfigModule.forRoot({
       envFilePath: '.env',
@@ -50,10 +50,19 @@ import { ScheduleModule } from '@nestjs/schedule';
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
       sortSchema: true,
     }),
+    BullModule.forRoot({
+      redis: {
+        host: 'localhost',
+        port: 6379,
+      },
+    }),
+    BullModule.registerQueue({
+      name: 'emailSending',
+    }),
     AuthModule,
     TodoModule,
   ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule { }
+export class AppModule {}

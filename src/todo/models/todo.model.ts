@@ -22,5 +22,5 @@ export class Todo {
 
   @Field()
   @IsNotEmpty()
-  endDate: Date
+  endDate: Date;
 }
