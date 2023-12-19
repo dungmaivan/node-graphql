@@ -43,7 +43,7 @@ import { BullModule } from '@nestjs/bull';
       envFilePath: '.env',
       isGlobal: true,
     }),
-    MongooseModule.forRoot(process.env.DB_URI),
+    MongooseModule.forRoot(process.env.DB_URI_WHENRUN_DOCKER),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       playground: true,
@@ -52,8 +52,8 @@ import { BullModule } from '@nestjs/bull';
     }),
     BullModule.forRoot({
       redis: {
-        host: 'localhost',
-        port: 6379,
+        host: 'redis',
+        port: 6369,
       },
     }),
     BullModule.registerQueue({

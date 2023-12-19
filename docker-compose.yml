@@ -8,12 +8,19 @@ services:
       - "3000:3000"
     depends_on:
       - mongo
+      - redis
     networks:
       - app-network
   mongo:
     image: "mongo:latest"
     ports:
-      - "27017:27017"
+      - "27016:27017"
+    networks:
+      - app-network
+  redis:
+    image: 'redis:alpine'
+    ports:
+      - 6369:6369
     networks:
       - app-network
 
