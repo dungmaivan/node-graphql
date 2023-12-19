@@ -3,14 +3,16 @@ import { IsOptional, Max, Min } from 'class-validator';
 
 @InputType()
 export class TodosArgs {
+  @IsOptional()
   @Field(() => Int)
   @Min(0)
-  page: number;
+  page?: number;
 
+  @IsOptional()
   @Field(() => Int)
   @Min(1)
   @Max(50)
-  count: number;
+  count?: number;
 
   @IsOptional()
   @Field({ nullable: true })

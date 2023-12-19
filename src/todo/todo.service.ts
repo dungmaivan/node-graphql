@@ -19,7 +19,7 @@ export class TodoService {
   }
 
   async findAll(data: TodosArgs): Promise<Todo[]> {
-    const currentPage = data.page;
+    const currentPage = data.page || 1;
 
     const keyword = data.keyword
       ? {
