@@ -22,7 +22,7 @@ export class Auth extends Document {
   password: string;
 
   @Prop()
-  active: boolean
+  active: boolean;
 }
 
 export const AuthSchema = SchemaFactory.createForClass(Auth);

@@ -74,22 +74,6 @@ describe('TodoResolver', () => {
       // Assertions
       expect(result).toEqual(mockTodos[0]);
     });
-
-    // describe('updateTodo', () => {
-    //   it('should update a todo', async () => {
-    //     // Mock data
-    //     const mockTodoId = 'mockTodoId';
-    //     const mockUpdatedTodo = { title: 'Updated Todo', completed: true };
-    //     mockTodoService.updateTodoById.mockResolvedValueOnce(mockUpdatedTodo);
-
-    //     // Execute the resolver
-    //     const result = await resolver.updateTodo(mockTodoId, { title: 'Updated Todo', completed: true });
-
-    //     // Assertions
-    //     expect(result).toEqual(mockUpdatedTodo);
-    //     expect(mockTodoService.updateTodoById).toHaveBeenCalledWith(mockTodoId, { title: 'Updated Todo', completed: true });
-    //   });
-    // });
   });
   describe('delete', () => {
     it('should delete a todo', async () => {
