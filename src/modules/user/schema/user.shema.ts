@@ -8,7 +8,7 @@ export enum Role {
 @Schema({
   timestamps: true,
 })
-export class Auth extends Document {
+export class User extends Document {
   @Prop()
   role: Role;
 
@@ -25,4 +25,4 @@ export class Auth extends Document {
   active: boolean;
 }
 
-export const AuthSchema = SchemaFactory.createForClass(Auth);
+export const UserSchema = SchemaFactory.createForClass(User);

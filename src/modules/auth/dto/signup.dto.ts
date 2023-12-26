@@ -7,7 +7,7 @@ import {
   Length,
   MinLength,
 } from 'class-validator';
-import { Role } from '../schema/auth.shema';
+import { Role } from 'src/modules/user/schema/user.shema';
 
 @InputType()
 export class SigupInputDto {

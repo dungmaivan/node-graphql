@@ -1,7 +1,7 @@
 import { InjectQueue } from '@nestjs/bull';
 import { Injectable } from '@nestjs/common';
 import { Queue } from 'bull';
-import { Mail } from 'src/interface/jobData';
+import { Mail } from '../../interface/jobData';
 
 @Injectable()
 export class EmailServiceRemind {

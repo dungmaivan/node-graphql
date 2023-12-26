@@ -5,16 +5,16 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { TodoSchema } from './schema/todo.schema';
 import { ScheduleModule } from '@nestjs/schedule';
 import { RemindService } from './remind.service';
-import { AuthSchema } from 'src/auth/schema/auth.shema';
 import { BullModule } from '@nestjs/bull';
-import { EmailSendRemindProcessor } from 'src/send-email-service/email-remind.processor';
-import { EmailServiceRemind } from 'src/send-email-service/email-remind.service';
+import { UserSchema } from 'src/modules/user/schema/user.shema';
+import { EmailSendRemindProcessor } from 'src/lib/send-email-service/emailRemind/email-remind.processor';
+import { EmailServiceRemind } from 'src/lib/send-email-service/emailRemind/email-remind.service';
 
 @Module({
   imports: [
     MongooseModule.forFeature([
       { name: 'Todo', schema: TodoSchema },
-      { name: 'Auth', schema: AuthSchema },
+      { name: 'User', schema: UserSchema },
     ]),
     ScheduleModule.forRoot(),
     BullModule.registerQueue({

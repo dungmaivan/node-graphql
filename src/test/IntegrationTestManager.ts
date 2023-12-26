@@ -2,7 +2,6 @@ import { INestApplication } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
 import { Connection } from 'mongoose';
 import { AppModule } from '../app.module';
-import { AuthService } from '../auth/auth.service';
 
 export class IntegrationTestManager {
   public httpServer: any;
@@ -19,8 +18,6 @@ export class IntegrationTestManager {
     this.app = moduleRef.createNestApplication();
     await this.app.init();
     this.httpServer = this.app.getHttpServer();
-
-    const authService = this.app.get<AuthService>(AuthService);
   }
 
   async afterAll() {

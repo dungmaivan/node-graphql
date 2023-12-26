@@ -1,5 +1,4 @@
 export interface Mail {
-  // from: string;
   email: string;
   subject: string;
   [key: string]: any;

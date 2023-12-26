@@ -1,7 +1,7 @@
 import { Field, ObjectType } from '@nestjs/graphql';
 
 @ObjectType()
-export class ResetPasswordRequest {
+export class ChangePasswordResponse {
   @Field()
   message: string;
 }

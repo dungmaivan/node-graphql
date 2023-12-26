@@ -1,19 +1,19 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { AuthSchema } from './schema/auth.shema';
-import { AuthService } from './auth.service';
-import { AuthResolver } from './auth.resolver';
+import { UserSchema } from './schema/user.shema';
+import { UserService } from './user.service';
+import { AuthResolver } from './user.resolver';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { ConfigService } from '@nestjs/config';
-import { JWTStrategy } from './jwt.strategy';
-import { EmailService } from 'src/send-email-service/email.service';
 import { BullModule } from '@nestjs/bull';
-import { EmailProcessor } from 'src/send-email-service/email.processor';
+import { JWTStrategy } from 'src/modules/auth/jwt.strategy';
+import { EmailService } from 'src/lib/send-email-service/emailResetPassword/email.service';
+import { EmailProcessor } from 'src/lib/send-email-service/emailResetPassword/email.processor';
 
 @Module({
   imports: [
-    MongooseModule.forFeature([{ name: 'Auth', schema: AuthSchema }]),
+    MongooseModule.forFeature([{ name: 'User', schema: UserSchema }]),
     PassportModule,
     JwtModule.registerAsync({
       inject: [ConfigService],
@@ -31,7 +31,7 @@ import { EmailProcessor } from 'src/send-email-service/email.processor';
     }),
   ],
   providers: [
-    AuthService,
+    UserService,
     AuthResolver,
     JWTStrategy,
     EmailService,
@@ -39,4 +39,4 @@ import { EmailProcessor } from 'src/send-email-service/email.processor';
   ],
   exports: [],
 })
-export class AuthModule {}
+export class UserModule {}

@@ -1,6 +1,6 @@
 import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
 import mongoose from 'mongoose';
-import { Auth } from '../../auth/schema/auth.shema';
+import { User } from '../../user/schema/user.shema';
 import { IsDate } from 'class-validator';
 
 @Schema({
@@ -16,8 +16,8 @@ export class Todo {
   @Prop()
   completed: boolean;
 
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Auth' })
-  userId: Auth;
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
+  userId: User;
 
   @Prop()
   @IsDate()

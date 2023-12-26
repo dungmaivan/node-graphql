@@ -3,16 +3,16 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Cron } from '@nestjs/schedule';
 import mongoose from 'mongoose';
 import { Todo } from './models/todo.model';
-import { Auth } from 'src/auth/schema/auth.shema';
-import { EmailServiceRemind } from 'src/send-email-service/email-remind.service';
+import { User } from 'src/modules/user/schema/user.shema';
+import { EmailServiceRemind } from 'src/lib/send-email-service/emailRemind/email-remind.service';
 
 @Injectable()
 export class RemindService {
   constructor(
     @InjectModel(Todo.name)
     private todoModel: mongoose.Model<Todo>,
-    @InjectModel(Auth.name)
-    private userModel: mongoose.Model<Auth>,
+    @InjectModel(User.name)
+    private userModel: mongoose.Model<User>,
     private emailServiceRemind: EmailServiceRemind,
   ) {}
 

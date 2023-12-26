@@ -6,6 +6,15 @@ type ActiveAccount {
   message: String!
 }
 
+input ChangePasswordInputDto {
+  newPassword: String!
+  oldPassword: String!
+}
+
+type ChangePasswordResponse {
+  message: String!
+}
+
 input CreateTodoInput {
   completed: Boolean!
   description: String
@@ -19,11 +28,6 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
-type ForgotPasswordRequest {
-  message: String!
-  token: String!
-}
-
 type Login {
   message: String!
   token: String!
@@ -36,13 +40,13 @@ input LoginInputDto {
 
 type Mutation {
   activeAccount: ActiveAccount!
-  changePassword(changePassword: ResetPasswordDto!): ForgotPasswordRequest!
+  changePassword(changePasswordInputDto: ChangePasswordInputDto!): ChangePasswordResponse!
   createTodoData(createTodoData: CreateTodoInput!): Todo!
   deleteAccount(id: String!): String!
   deleteTodo(id: String!): String!
   forgotPasswordRequest(forgotPasswordRequest: String!): String!
   login(login: LoginInputDto!): Login!
-  resetPassword(ResetPasswordDto: ResetPasswordDto!): ResetPasswordRequest!
+  resetPasswordRequest(changePassword: ResetPasswordDto!): ChangePasswordResponse!
   signup(signup: SigupInputDto!): Signup!
   updateTodo(todo: UpdateTodoInput!): Todo!
 }
@@ -54,11 +58,6 @@ type Query {
 
 input ResetPasswordDto {
   newPassword: String!
-  oldPassword: String!
-}
-
-type ResetPasswordRequest {
-  message: String!
 }
 
 type Signup {

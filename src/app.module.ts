@@ -6,12 +6,13 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { join } from 'path';
 import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
-import { TodoModule } from './todo/todo.module';
-import { AuthModule } from './auth/auth.module';
+import { TodoModule } from './modules/todo/todo.module';
+import { UserModule } from './modules/user/user.module';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { EjsAdapter } from '@nestjs-modules/mailer/dist/adapters/ejs.adapter';
 import { ScheduleModule } from '@nestjs/schedule';
 import { BullModule } from '@nestjs/bull';
+import { AuthModule } from './modules/auth/auth.module';
 
 @Module({
   imports: [
@@ -31,7 +32,7 @@ import { BullModule } from '@nestjs/bull';
           from: `"No Reply" <${process.env.MAIL_FROM}>`,
         },
         template: {
-          dir: join(__dirname, 'src/templates/email'),
+          dir: join(__dirname, 'src/lib/templates/email'),
           adapter: new EjsAdapter(),
           options: {
             strict: true,
@@ -59,6 +60,7 @@ import { BullModule } from '@nestjs/bull';
     BullModule.registerQueue({
       name: 'emailSending',
     }),
+    UserModule,
     AuthModule,
     TodoModule,
   ],
