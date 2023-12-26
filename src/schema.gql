@@ -6,6 +6,17 @@ type ActiveAccount {
   message: String!
 }
 
+"""conversation """
+type Conversation {
+  createAt: DateTime!
+  id: ID!
+  member: [String!]!
+}
+
+input CreateConversationDto {
+  targetUser: String!
+}
+
 input CreateTodoInput {
   completed: Boolean!
   description: String
@@ -37,6 +48,7 @@ input LoginInputDto {
 type Mutation {
   activeAccount: ActiveAccount!
   changePassword(changePassword: ResetPasswordDto!): ForgotPasswordRequest!
+  createConversation(createConversation: CreateConversationDto!): Conversation!
   createTodoData(createTodoData: CreateTodoInput!): Todo!
   deleteAccount(id: String!): String!
   deleteTodo(id: String!): String!

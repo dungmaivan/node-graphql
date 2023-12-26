@@ -3,7 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { PassportStrategy } from '@nestjs/passport';
 import { Strategy, ExtractJwt } from 'passport-jwt';
 import { Model } from 'mongoose';
-import { Auth, Role } from './schema/auth.shema';
+import { Auth } from './schema/auth.shema';
 import { ConfigService } from '@nestjs/config';
 
 @Injectable()
@@ -27,11 +27,11 @@ export class JWTStrategy extends PassportStrategy(Strategy) {
       throw new UnauthorizedException('User not found');
     }
 
-    if (user && user.role !== Role.boss) {
-      throw new UnauthorizedException(
-        'You are not authorized to access this endpoint.',
-      );
-    }
+    // if (user && user.role !== Role.boss) {
+    //   throw new UnauthorizedException(
+    //     'You are not authorized to access this endpoint.',
+    //   );
+    // }
     return user;
   }
 }

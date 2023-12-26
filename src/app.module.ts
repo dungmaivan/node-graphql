@@ -12,6 +12,8 @@ import { MailerModule } from '@nestjs-modules/mailer';
 import { EjsAdapter } from '@nestjs-modules/mailer/dist/adapters/ejs.adapter';
 import { ScheduleModule } from '@nestjs/schedule';
 import { BullModule } from '@nestjs/bull';
+import { EventsModule } from './chat/events/events.module';
+import { ConvarsationModule } from './chat/conversation/conversation.module';
 
 @Module({
   imports: [
@@ -46,6 +48,9 @@ import { BullModule } from '@nestjs/bull';
     MongooseModule.forRoot(process.env.DB_URI),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
+      subscriptions: {
+        'graphql-ws': true,
+      },
       playground: true,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
       sortSchema: true,
@@ -61,6 +66,8 @@ import { BullModule } from '@nestjs/bull';
     }),
     AuthModule,
     TodoModule,
+    EventsModule,
+    ConvarsationModule,
   ],
   controllers: [AppController],
   providers: [AppService],
