@@ -1,10 +1,10 @@
 import { Args, Mutation, Resolver } from '@nestjs/graphql';
 import { ConversationService } from './conversation.service';
 import { UseGuards } from '@nestjs/common';
-import { JwtAuthGuard } from 'src/auth/guards/auth.gurad';
 import { Conversation } from './model/conversation.model';
 import { CreateConversationDto } from './dto/create-consersation.dto';
-import { CurrentUser } from 'src/auth/decorator/user.decorator.graphql';
+import { CurrentUser } from 'src/lib/decorator/user.decorator.graphql';
+import { JwtAuthGuard } from 'src/lib/guards/auth.gurad';
 
 @Resolver('Conversation')
 export class ConversationResolver {

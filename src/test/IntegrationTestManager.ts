@@ -2,7 +2,7 @@ import { INestApplication } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
 import { Connection } from 'mongoose';
 import { AppModule } from '../app.module';
-import { AuthService } from '../auth/auth.service';
+import { AuthService } from 'src/modules/auth/auth.service';
 
 export class IntegrationTestManager {
   public httpServer: any;

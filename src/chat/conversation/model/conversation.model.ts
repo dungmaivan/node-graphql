@@ -10,5 +10,5 @@ export class Conversation {
   member: string[];
 
   @Field()
-  createAt: Date;
+  createdAt: Date;
 }

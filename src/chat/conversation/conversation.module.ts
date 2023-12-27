@@ -1,14 +1,14 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { AuthSchema } from 'src/auth/schema/auth.shema';
 import { ConversationSchema } from './schema/conversation.schema';
 import { ConversationResolver } from './conversation.resolver';
 import { ConversationService } from './conversation.service';
+import { UserSchema } from 'src/modules/user/schema/user.shema';
 
 @Module({
   imports: [
     MongooseModule.forFeature([
-      { name: 'Auth', schema: AuthSchema },
+      { name: 'User', schema: UserSchema },
       {
         name: 'Conversation',
         schema: ConversationSchema,

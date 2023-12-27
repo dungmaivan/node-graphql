@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { IsDate } from 'class-validator';
-import { Auth } from 'src/auth/schema/auth.shema';
 import mongoose from 'mongoose';
+import { User } from 'src/modules/user/schema/user.shema';
 
 @Schema({
   timestamps: true,
@@ -18,6 +18,6 @@ export class Conversation {
   createAt: Date;
 
   @Prop({ type: [mongoose.Schema.Types.ObjectId], ref: 'Auth' })
-  member: Auth[];
+  member: User[];
 }
 export const ConversationSchema = SchemaFactory.createForClass(Conversation);
