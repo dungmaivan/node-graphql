@@ -7,9 +7,9 @@ import { PassportModule } from '@nestjs/passport';
 import { ConfigService } from '@nestjs/config';
 import { JWTStrategy } from './jwt.strategy';
 import { BullModule } from '@nestjs/bull';
-import { UserSchema } from 'src/modules/user/schema/user.shema';
-import { EmailWelcomeService } from 'src/lib/send-email-service/emailWelcom/email-welcome.service';
-import { EmailWelcomeProcessor } from 'src/lib/send-email-service/emailWelcom/email-welcome.processor';
+import { UserSchema } from '../../modules/user/schema/user.shema';
+import { EmailWelcomeService } from '../../lib/send-email-service/emailWelcom/email-welcome.service';
+import { EmailWelcomeProcessor } from '../../lib/send-email-service/emailWelcom/email-welcome.processor';
 
 @Module({
   imports: [

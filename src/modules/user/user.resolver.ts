@@ -3,13 +3,13 @@ import { UserService } from './user.service';
 import { UseGuards } from '@nestjs/common';
 import { ActiveAccount } from './models/active-account.model';
 import { ResetPasswordDto } from './dto/reset-password.dto';
-import { JwtAuthGuard } from 'src/lib/guards/auth.gurad';
+import { JwtAuthGuard } from '../../lib/guards/auth.gurad';
 import { ChangePasswordInputDto } from './dto/changePasswordInputDto.dto';
 import { ChangePasswordResponse } from './models/reset-password.model';
-import { CurrentUser } from 'src/lib/decorator/user.decorator.graphql';
+import { CurrentUser } from '../../lib/decorator/user.decorator.graphql';
 
 @Resolver()
-export class AuthResolver {
+export class UserResolver {
   constructor(private readonly authService: UserService) {}
 
   // send email to request reset password
@@ -23,7 +23,7 @@ export class AuthResolver {
   @UseGuards(JwtAuthGuard)
   async resetPasswordRequest(
     @CurrentUser() user,
-    @Args('changePassword') resetPasswordData: ResetPasswordDto,
+    @Args('resetPassword') resetPasswordData: ResetPasswordDto,
   ): Promise<ChangePasswordResponse> {
     return this.authService.resetPassword(resetPasswordData, user._id);
   }

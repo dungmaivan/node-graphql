@@ -7,26 +7,26 @@ import * as bcrypt from 'bcryptjs';
 import { LoginInputDto } from './dto/login.dto';
 // import * as ejs from 'ejs';
 import { Login } from './models/login.model';
-import { User } from 'src/modules/user/schema/user.shema';
-import { EmailWelcomeService } from 'src/lib/send-email-service/emailWelcom/email-welcome.service';
+import { User } from '../../modules/user/schema/user.shema';
+import { EmailWelcomeService } from '../../lib/send-email-service/emailWelcom/email-welcome.service';
 
 @Injectable()
 export class AuthService {
   constructor(
     @InjectModel(User.name)
-    private authModel: mongoose.Model<User>,
+    private userModel: mongoose.Model<User>,
     private jwtService: JwtService,
     private emailWelcomeService: EmailWelcomeService,
   ) {}
 
   async signup(signupDto: SigupInputDto): Promise<{ message: string }> {
     const { email, password, username, role } = signupDto;
-    const userAlreadyExists = await this.authModel.findOne({ email });
+    const userAlreadyExists = await this.userModel.findOne({ email });
     if (userAlreadyExists) {
       throw new HttpException('Email already exists', 400);
     }
     const hashedPassword = await bcrypt.hash(password, 10);
-    const user = await this.authModel.create({
+    const user = await this.userModel.create({
       email,
       username,
       password: hashedPassword,
@@ -51,7 +51,7 @@ export class AuthService {
 
   async login(loginInputDto: LoginInputDto): Promise<Login> {
     const { email, password } = loginInputDto;
-    const user = await this.authModel.findOne({ email });
+    const user = await this.userModel.findOne({ email });
     if (!user) {
       throw new Error('Not found user');
     }

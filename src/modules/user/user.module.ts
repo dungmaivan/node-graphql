@@ -2,14 +2,14 @@ import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UserSchema } from './schema/user.shema';
 import { UserService } from './user.service';
-import { AuthResolver } from './user.resolver';
+import { UserResolver } from './user.resolver';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { ConfigService } from '@nestjs/config';
 import { BullModule } from '@nestjs/bull';
-import { JWTStrategy } from 'src/modules/auth/jwt.strategy';
-import { EmailService } from 'src/lib/send-email-service/emailResetPassword/email.service';
-import { EmailProcessor } from 'src/lib/send-email-service/emailResetPassword/email.processor';
+import { JWTStrategy } from '../../modules/auth/jwt.strategy';
+import { EmailService } from '../../lib/send-email-service/emailResetPassword/email.service';
+import { EmailProcessor } from '../../lib/send-email-service/emailResetPassword/email.processor';
 
 @Module({
   imports: [
@@ -32,7 +32,7 @@ import { EmailProcessor } from 'src/lib/send-email-service/emailResetPassword/em
   ],
   providers: [
     UserService,
-    AuthResolver,
+    UserResolver,
     JWTStrategy,
     EmailService,
     EmailProcessor,

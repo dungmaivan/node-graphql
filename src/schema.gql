@@ -46,7 +46,7 @@ type Mutation {
   deleteTodo(id: String!): String!
   forgotPasswordRequest(forgotPasswordRequest: String!): String!
   login(login: LoginInputDto!): Login!
-  resetPasswordRequest(changePassword: ResetPasswordDto!): ChangePasswordResponse!
+  resetPasswordRequest(resetPassword: ResetPasswordDto!): ChangePasswordResponse!
   signup(signup: SigupInputDto!): Signup!
   updateTodo(todo: UpdateTodoInput!): Todo!
 }

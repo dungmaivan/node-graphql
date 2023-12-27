@@ -15,7 +15,7 @@ export class RemindService {
     private userModel: mongoose.Model<User>,
     private emailServiceRemind: EmailServiceRemind,
   ) {}
-
+  //  send remind task is overdue on 00:am every day
   @Cron('0 0 0 * * *')
   async handleCron() {
     const listTaskRemind = await this.todoModel.find({

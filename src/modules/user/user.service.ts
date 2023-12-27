@@ -5,7 +5,7 @@ import mongoose from 'mongoose';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcryptjs';
 // import * as ejs from 'ejs';
-import { EmailService } from 'src/lib/send-email-service/emailResetPassword/email.service';
+import { EmailService } from '../../lib/send-email-service/emailResetPassword/email.service';
 import { ChangePasswordResponse } from './models/reset-password.model';
 import { ChangePasswordInputDto } from './dto/changePasswordInputDto.dto';
 import { ResetPasswordDto } from './dto/reset-password.dto';
@@ -14,13 +14,13 @@ import { ResetPasswordDto } from './dto/reset-password.dto';
 export class UserService {
   constructor(
     @InjectModel(User.name)
-    private authModel: mongoose.Model<User>,
+    private userModel: mongoose.Model<User>,
     private jwtService: JwtService,
     private emailService: EmailService,
   ) {}
-
+  // active account
   async activeAccount(id: string): Promise<{ message: string }> {
-    const user = await this.authModel.findById(id);
+    const user = await this.userModel.findById(id);
     if (!user) {
       throw new Error('Not found user');
     }
@@ -29,8 +29,9 @@ export class UserService {
     return { message: 'Active account success' };
   }
 
+  //  forgot password => send token to email
   async forgotPasswordRequest(email: string): Promise<string> {
-    const user = await this.authModel.findOne({ email });
+    const user = await this.userModel.findOne({ email });
     if (!user) {
       throw new HttpException('Not found user', 400);
     }
@@ -45,9 +46,10 @@ export class UserService {
     this.emailService.sendResetPasswordEmail(data);
     return 'We had sended email reset password success, please check email to reset password';
   }
+  // delete account
   async delete(id: string): Promise<string> {
     try {
-      const user = await this.authModel.findByIdAndDelete(id);
+      const user = await this.userModel.findByIdAndDelete(id);
       if (!user) {
         return 'Not found user';
       }
@@ -56,41 +58,32 @@ export class UserService {
       return 'Delete user error';
     }
   }
-
+  // user can change password
   async changePassword(
-    resetPasswordData: ChangePasswordInputDto,
+    changePasswordData: ChangePasswordInputDto,
     id: string,
   ): Promise<ChangePasswordResponse> {
-    try {
-      const user = await this.authModel.findById(id);
-      if (!user) {
-        return { message: 'Not found user' };
-      }
-      const isMatch = await bcrypt.compare(
-        resetPasswordData.oldPassword,
-        user.password,
-      );
-      if (!isMatch) {
-        return { message: 'Old password is not correct' };
-      }
-      user.password = await bcrypt.hash(resetPasswordData.newPassword, 10);
-      await user.save();
-      return { message: 'Change password success' };
-    } catch (error) {
-      return { message: 'Change password error' };
+    const user = await this.userModel.findById(id);
+    if (!user) {
+      return { message: 'Not found user' };
     }
+    const isMatch = await bcrypt.compare(
+      changePasswordData.oldPassword,
+      user.password,
+    );
+    if (!isMatch) {
+      return { message: 'Old password is not correct' };
+    }
+    user.password = await bcrypt.hash(changePasswordData.newPassword, 10);
+    await user.save();
+    return { message: 'Change password success' };
   }
-
+  // reset pass word affter veryfi token forgot password
   async resetPassword(
     resetPasswordData: ResetPasswordDto,
     id: string,
   ): Promise<ChangePasswordResponse> {
-    console.log(
-      '🚀 ~ file: user.service.ts:88 ~ UserService ~ resetPasswordData:',
-      resetPasswordData,
-    );
-
-    const user = await this.authModel.findById(id);
+    const user = await this.userModel.findById(id);
     if (!user) {
       return { message: 'Not found user' };
     }
