@@ -26,6 +26,11 @@ input CreateConversationDto {
   targetUser: String!
 }
 
+input CreateMessageDto {
+  content: String!
+  conversationId: String!
+}
+
 input CreateTodoInput {
   completed: Boolean!
   description: String
@@ -39,6 +44,16 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+input EditMessageDto {
+  content: String!
+  messageId: String!
+}
+
+input GetAllMessageDto {
+  conversationId: String!
+  offset: Float!
+}
+
 type Login {
   message: String!
   token: String!
@@ -49,22 +64,42 @@ input LoginInputDto {
   password: String!
 }
 
+"""message"""
+type Message {
+  content: String!
+  conversationId: String!
+  id: ID!
+  senderId: String!
+}
+
+type MessageModel {
+  massage: String!
+}
+
 type Mutation {
   activeAccount: ActiveAccount!
   changePassword(changePasswordInputDto: ChangePasswordInputDto!): ChangePasswordResponse!
   createConversation(createConversation: CreateConversationDto!): Conversation!
+  createMessage(createMessage: CreateMessageDto!): Message!
   createTodoData(createTodoData: CreateTodoInput!): Todo!
   deleteAccount(id: String!): String!
+  deleteConversation: MessageModel!
+  deleteMessage(messageId: String!): String!
   deleteTodo(id: String!): String!
   forgotPasswordRequest(forgotPasswordRequest: String!): String!
   login(login: LoginInputDto!): Login!
   resetPasswordRequest(resetPassword: ResetPasswordDto!): ChangePasswordResponse!
   signup(signup: SigupInputDto!): Signup!
+  updateMessage(messageId: EditMessageDto!): Message!
   updateTodo(todo: UpdateTodoInput!): Todo!
 }
 
 type Query {
+  getAMessage(messageId: String!): Message!
+  getAllConversations: [Conversation!]!
+  getAllMessage(getAllMessage: GetAllMessageDto!): [Message!]!
   getAllTodos(getAllTodo: TodosArgs!): [Todo!]!
+  getConversationById: Conversation!
   getOneTodo(id: String!): Todo!
 }
 

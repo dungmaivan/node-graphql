@@ -15,6 +15,7 @@ import { BullModule } from '@nestjs/bull';
 import { EventsModule } from './chat/events/events.module';
 import { ConvarsationModule } from './chat/conversation/conversation.module';
 import { AuthModule } from './modules/auth/auth.module';
+import { MessageModule } from './chat/message/message.module';
 
 @Module({
   imports: [
@@ -70,6 +71,7 @@ import { AuthModule } from './modules/auth/auth.module';
     TodoModule,
     EventsModule,
     ConvarsationModule,
+    MessageModule,
   ],
   controllers: [AppController],
   providers: [AppService],

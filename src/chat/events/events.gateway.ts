@@ -5,7 +5,7 @@ import {
   WebSocketServer,
 } from '@nestjs/websockets';
 import { Server } from 'socket.io';
-
+import { Message } from '../message/model/message.model';
 @WebSocketGateway({
   cors: {
     origin: '*',
@@ -18,6 +18,10 @@ export class EventGateWay {
 
   @SubscribeMessage('message')
   handleMessage(@MessageBody() message: string) {
+    return message;
+  }
+  sendNewMessage(message: Message) {
+    this.server.emit('message', message);
     return message;
   }
 }

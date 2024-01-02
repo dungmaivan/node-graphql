@@ -38,7 +38,6 @@
               })
             );
             socket.emit('events', input.value, (res) => {
-              console.log("🚀 ~ file: index.html:34 ~ socket.emit ~ res:", res)
               res.map((item) => {
               const ul = document.getElementById('messages');
               const li = document.createElement('li');

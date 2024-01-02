@@ -1,10 +1,10 @@
-import { Prop, Schema } from '@nestjs/mongoose';
-import { IsDate } from 'class-validator';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Document } from 'mongoose';
 
 @Schema({
   timestamps: true,
 })
-export class MessageSchema {
+export class Message extends Document {
   @Prop()
   content: string;
 
@@ -13,8 +13,5 @@ export class MessageSchema {
 
   @Prop()
   conversationId: string;
-
-  @Prop()
-  @IsDate()
-  createAt: Date;
 }
+export const MessageSchema = SchemaFactory.createForClass(Message);

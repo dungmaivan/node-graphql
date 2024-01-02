@@ -5,8 +5,8 @@ import { InjectModel } from '@nestjs/mongoose';
 import mongoose from 'mongoose';
 import { UpdateTodoInput } from './dto/update-todo-input';
 import { TodosArgs } from './dto/todos.args';
+import { PAGE_SIZE } from '../../config';
 
-const PAGE_SIZE = 3;
 @Injectable()
 export class TodoService {
   constructor(
