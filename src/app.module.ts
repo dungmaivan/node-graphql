@@ -13,6 +13,7 @@ import { EjsAdapter } from '@nestjs-modules/mailer/dist/adapters/ejs.adapter';
 import { ScheduleModule } from '@nestjs/schedule';
 import { BullModule } from '@nestjs/bull';
 import { AuthModule } from './modules/auth/auth.module';
+import { OrderModule } from './modules/order/order.module';
 
 @Module({
   imports: [
@@ -63,6 +64,7 @@ import { AuthModule } from './modules/auth/auth.module';
     UserModule,
     AuthModule,
     TodoModule,
+    OrderModule,
   ],
   controllers: [AppController],
   providers: [AppService],

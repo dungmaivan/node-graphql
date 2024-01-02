@@ -37,6 +37,6 @@ import { EmailProcessor } from '../../lib/send-email-service/emailResetPassword/
     EmailService,
     EmailProcessor,
   ],
-  exports: [],
+  exports: [UserModule],
 })
 export class UserModule {}

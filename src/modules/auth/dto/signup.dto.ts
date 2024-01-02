@@ -1,5 +1,6 @@
 import { Field, InputType } from '@nestjs/graphql';
 import {
+  IsBoolean,
   IsEmail,
   IsNotEmpty,
   IsOptional,
@@ -30,4 +31,8 @@ export class SigupInputDto {
   @Field()
   @IsOptional()
   role: Role;
+
+  @Field({ defaultValue: false })
+  @IsBoolean()
+  IsPremium: boolean;
 }

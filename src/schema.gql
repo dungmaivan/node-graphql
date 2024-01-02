@@ -41,6 +41,7 @@ input LoginInputDto {
 type Mutation {
   activeAccount: ActiveAccount!
   changePassword(changePasswordInputDto: ChangePasswordInputDto!): ChangePasswordResponse!
+  createPayment(useId: String!): String!
   createTodoData(createTodoData: CreateTodoInput!): Todo!
   deleteAccount(id: String!): String!
   deleteTodo(id: String!): String!
@@ -65,6 +66,7 @@ type Signup {
 }
 
 input SigupInputDto {
+  IsPremium: Boolean! = false
   email: String!
   password: String!
   role: String!

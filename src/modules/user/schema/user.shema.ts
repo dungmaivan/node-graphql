@@ -23,6 +23,9 @@ export class User extends Document {
 
   @Prop()
   active: boolean;
+
+  @Prop()
+  IsPremium: boolean;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

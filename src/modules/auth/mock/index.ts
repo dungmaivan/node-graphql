@@ -25,6 +25,7 @@ export const mockSignupData: SigupInputDto = {
   role: Role.boss,
   username: 'Mr Mai',
   email: 'email@gmail.com',
+  IsPremium: false,
 };
 
 export const mockUserActived = {
