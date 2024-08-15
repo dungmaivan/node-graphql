@@ -18,7 +18,7 @@ export class UserResolver {
     return this.authService.forgotPasswordRequest(email);
   }
 
-  // forgot Password => send request to reset pasword
+  // forgot Password => send request to reset password
   @Mutation(() => ChangePasswordResponse)
   @UseGuards(JwtAuthGuard)
   async resetPasswordRequest(
